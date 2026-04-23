@@ -1,0 +1,104 @@
+# Python Log Analyzer
+
+A beginner-friendly Apache log analyzer built as part of my cybersecurity Python learning path. This tool parses web server logs, identifies failed HTTP requests, and summarizes suspicious IP activity — core skills for SOC analyst work.
+
+---
+
+## What It Does
+
+- Parses Apache-style web server log files
+- Flags failed requests by HTTP status code (401, 403, 404, 500)
+- Counts failed attempts per IP address and ranks by frequency
+- Displays a detailed event log and summary report
+
+---
+
+## Why I Built This
+
+As part of my transition into cybersecurity, I wanted to build practical tools that reflect real SOC analyst workflows. Log parsing and identifying brute force patterns are daily tasks in a SOC environment. This project helped me understand:
+
+- File I/O in Python
+- Regular expressions (regex) for log parsing
+- Data structures (`defaultdict`, lists, tuples)
+- Clean code practices (functions, docstrings, error handling)
+
+---
+
+## Sample Output
+
+```
+=============================================
+      LOG ANALYZER - FAILED REQUESTS
+=============================================
+
+[+] Suspicious IPs and Fail Counts:
+  10.0.0.5           4 failed request(s)
+  192.168.1.15       2 failed request(s)
+  172.16.0.2         1 failed request(s)
+
+[+] Event Detail:
+  192.168.1.15       | 404 | GET /admin HTTP/1.1
+  10.0.0.5           | 401 | POST /login HTTP/1.1
+  10.0.0.5           | 401 | POST /login HTTP/1.1
+  10.0.0.5           | 401 | POST /login HTTP/1.1
+  192.168.1.15       | 403 | GET /secret HTTP/1.1
+  172.16.0.2         | 404 | GET /phpmyadmin HTTP/1.1
+  10.0.0.5           | 401 | POST /login HTTP/1.1
+
+[+] Summary:
+  Total failed events:   7
+  Unique suspicious IPs: 3
+```
+
+---
+
+## Files
+
+| File | Description |
+|---|---|
+| `log_analyzer.py` | Main script |
+| `sample.log` | Sample Apache log file for testing |
+
+---
+
+## How to Run
+
+1. Clone the repo
+2. Place your log file in the project directory
+3. Update `LOG_FILE` at the top of `log_analyzer.py` if using a different filename
+4. Run with Python 3:
+
+```bash
+python log_analyzer.py
+```
+
+No external libraries required — uses Python standard library only.
+
+---
+
+## Status Codes Monitored
+
+| Code | Meaning | Why It Matters |
+|---|---|---|
+| 401 | Unauthorized | Failed login attempts |
+| 403 | Forbidden | Accessing restricted resources |
+| 404 | Not Found | Probing for hidden pages |
+| 500 | Server Error | Possible malicious input |
+
+---
+
+## Planned Features
+
+- [ ] Threshold alert — flag IPs exceeding a configurable fail count
+- [ ] Export report to `.txt` file
+- [ ] Accept log filename as a command-line argument
+
+---
+
+## Skills Demonstrated
+
+`Python` `Regex` `Log Analysis` `File I/O` `Error Handling` `SOC Concepts`
+
+---
+
+*Part of my cybersecurity portfolio — see also my [Homelab Projects](https://github.com/BLFaganProjects/Homelab-Projects)*
